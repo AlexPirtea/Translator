@@ -2,13 +2,26 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Translator"
+             xmlns:conv="clr-namespace:Translator.Converter"
              x:Class="Translator.MainPage">
-
-    <StackLayout>
-        <!-- Place new controls here -->
-        <Label Text="{Binding Hello}" 
-           HorizontalOptions="Center"
-           VerticalOptions="CenterAndExpand" />
-    </StackLayout>
-
+    <ContentPage.Resources>
+        <conv:StringToCollectionConverter x:Key="StringToCollection" />
+    </ContentPage.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="70*" />
+            <ColumnDefinition Width="30*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="45*"/>
+            <RowDefinition Height="45*"/>
+            <RowDefinition Height="10*"/>
+        </Grid.RowDefinitions>
+        <Editor x:Name="Input" Grid.Row="0" Grid.Column="0" 
+                BackgroundColor="ForestGreen"
+                Text="{Binding Words, Converter={StaticResource StringToCollection} , Mode=OneWayToSource}"/>
+        <Editor x:Name="Output" Grid.Row="1" Grid.Column="0" 
+                BackgroundColor="AliceBlue"
+                Text="{Binding Words, Converter={StaticResource StringToCollection} , Mode=OneWay}"/>
+    </Grid>
 </ContentPage>

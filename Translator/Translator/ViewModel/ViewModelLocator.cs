@@ -1,9 +1,7 @@
 ﻿using CommonServiceLocator;
 using GalaSoft.MvvmLight.Ioc;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Text;
+using Translator.Service;
 
 namespace Translator.ViewModel
 {
@@ -13,6 +11,7 @@ namespace Translator.ViewModel
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
             SimpleIoc.Default.Register<MainViewModel>();
+            SimpleIoc.Default.Register<ITranslator, DefaultTranslatorService>();
         }
 
         [SuppressMessage("Microsoft.Performance",
