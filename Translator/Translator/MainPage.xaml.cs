@@ -14,6 +14,7 @@ namespace Translator
         {
             InitializeComponent();
             BindingContext = ((ViewModelLocator)Application.Current.Resources["Locator"]).Main;
+            
         }
     }
 }

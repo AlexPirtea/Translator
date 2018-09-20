@@ -1,16 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:Translator"
              xmlns:conv="clr-namespace:Translator.Converter"
-             xmlns:model="clr-namespace:Translator.Model"
+             xmlns:trigger="clr-namespace:Translator.Trigger"
              x:Class="Translator.MainPage">
     <ContentPage.Resources>
-        <conv:StringToCollectionConverter x:Key="StringToCollection" />
+        <ResourceDictionary>
+            <!--<Style x:Key="EntryStyle" TargetType="Entry">
+                <Setter Property="MinimumWidthRequest" Value="50"/>
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="FontSize">
+                    <OnPlatform x:TypeArguments="x:String" Android="Medium" iOS="Medium" />
+                </Setter>
+                <Setter Property="FontAttributes"  Value="Italic"/>
+            </Style>-->
+        </ResourceDictionary>
     </ContentPage.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="70*" />
+            <ColumnDefinition Width="70*"  />
             <ColumnDefinition Width="30*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -18,9 +26,16 @@
             <RowDefinition Height="75*"/>
             <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
-        <Editor x:Name="Input" Grid.Row="0" Grid.Column="0" 
-                BackgroundColor="ForestGreen"
-                Text="{Binding InputWord, Mode=OneWayToSource}"/>
+        <Entry x:Name="Input" Grid.Row="0" Grid.Column="0" 
+                BackgroundColor="{Binding InputBackground}"
+                Text="{Binding InputWord, Mode=OneWayToSource}" >
+
+            <Entry.Triggers>
+                <EventTrigger Event="Completed" >
+                    <trigger:ShakeEntry />
+                </EventTrigger>
+            </Entry.Triggers>
+        </Entry>
         <Label Text="{Binding Language}"  Grid.Row="0" Grid.Column="1"/>
 
         <ListView  x:Name="Output" Grid.Row="1" Grid.Column="0" ItemsSource="{Binding OutputWords}" >

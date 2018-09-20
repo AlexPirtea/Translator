@@ -13,6 +13,8 @@ namespace Translator.ViewModel
     public class MainViewModel : ViewModelBase
     {
         private ITranslator _translatorService;
+
+        // ViewExtensions.CancelAnimations
         public MainViewModel(ITranslator translatorService)
         {
             _translatorService = translatorService;
@@ -41,10 +43,13 @@ namespace Translator.ViewModel
                 if (translationResult == null)
                 {
                     Language = null;
+                    InputBackground = Color.Red;
                     return new List<Word> { new Word { Text = "Word not found" } };
                 }
 
+                
                 Language = translationResult.Language;
+                InputBackground = Color.Green;
                 return translationResult.Links;
             }
         }
@@ -60,6 +65,19 @@ namespace Translator.ViewModel
                     return;
                 _language = string.IsNullOrWhiteSpace(value) ? @"N\A" : CultureInfo.GetCultureInfo(value).EnglishName;
                 RaisePropertyChanged(nameof(Language));
+            }
+        }
+
+        private Color _inputBackgorund = Color.White;
+        public Color InputBackground
+        {
+            get => _inputBackgorund;
+            set
+            {
+                if (_inputBackgorund == value)
+                    return;
+                _inputBackgorund = value;
+                RaisePropertyChanged(nameof(InputBackground));
             }
         }
     }
