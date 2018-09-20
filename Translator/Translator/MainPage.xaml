@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Translator"
              xmlns:conv="clr-namespace:Translator.Converter"
+             xmlns:model="clr-namespace:Translator.Model"
              x:Class="Translator.MainPage">
     <ContentPage.Resources>
         <conv:StringToCollectionConverter x:Key="StringToCollection" />
@@ -13,16 +14,25 @@
             <ColumnDefinition Width="30*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="45*"/>
-            <RowDefinition Height="45*"/>
+            <RowDefinition Height="15*"/>
+            <RowDefinition Height="75*"/>
             <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
         <Editor x:Name="Input" Grid.Row="0" Grid.Column="0" 
                 BackgroundColor="ForestGreen"
-                Text="{Binding InputWords, Converter={StaticResource StringToCollection}, Mode=OneWayToSource}"/>
+                Text="{Binding InputWord, Mode=OneWayToSource}"/>
         <Label Text="{Binding Language}"  Grid.Row="0" Grid.Column="1"/>
-        <Editor x:Name="Output" Grid.Row="1" Grid.Column="0" 
-                BackgroundColor="AliceBlue"
-                Text="{Binding OutputWords, Converter={StaticResource StringToCollection}, Mode=OneWay}"/>
+
+        <ListView  x:Name="Output" Grid.Row="1" Grid.Column="0" ItemsSource="{Binding OutputWords}" >
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="Fill" >
+                            <Label Text = "{Binding Text}" FontSize="Medium" />
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </Grid>
 </ContentPage>

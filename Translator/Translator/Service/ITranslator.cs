@@ -5,7 +5,7 @@ namespace Translator.Service
 {
     public interface ITranslator
     {
-        (IEnumerable<Word> output, string language) Translate(IEnumerable<string> input);
+        Word Translate(string input);
         string DictionarySource { get; set; }
         void Init();
     }

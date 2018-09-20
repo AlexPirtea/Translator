@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
@@ -15,43 +16,36 @@ namespace Translator.ViewModel
         public MainViewModel(ITranslator translatorService)
         {
             _translatorService = translatorService;
-            
-
-            _inputWords = new ConcurrentBag<Word>();
-            _outputWords = new ConcurrentBag<Word>();
-
-            //_language = CultureInfo.GetCultureInfo("ro-RO").EnglishName;
         }
 
-        private ConcurrentBag<Word> _inputWords;
+        private string _inputWord = string.Empty;
 
-        public ConcurrentBag<Word> InputWords
+        public string InputWord
         {
-            get => _inputWords;
+            get => _inputWord;
             set
             {
-                if (_inputWords == value)
+                if (_inputWord == value)
                     return;
-                _inputWords = value;
+                _inputWord = value;
                 RaisePropertyChanged(nameof(OutputWords));
             }
         }
 
-        private ConcurrentBag<Word> _outputWords;
-        public ConcurrentBag<Word> OutputWords
+        public List<Word> OutputWords
         {
             get
             {
-                var translationResult = _translatorService.Translate(InputWords.Select(w => w.Text));
-                Language = translationResult.language;
-                return new ConcurrentBag<Word>(translationResult.output);
-            }
+                var translationResult = _translatorService.Translate(_inputWord);
 
-            set
-            {
-                if (_inputWords == value)
-                    return;
-                _inputWords = value;
+                if (translationResult == null)
+                {
+                    Language = null;
+                    return new List<Word> { new Word { Text = "Word not found" } };
+                }
+
+                Language = translationResult.Language;
+                return translationResult.Links;
             }
         }
 
