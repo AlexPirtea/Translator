@@ -19,9 +19,10 @@
         </Grid.RowDefinitions>
         <Editor x:Name="Input" Grid.Row="0" Grid.Column="0" 
                 BackgroundColor="ForestGreen"
-                Text="{Binding Words, Converter={StaticResource StringToCollection} , Mode=OneWayToSource}"/>
+                Text="{Binding InputWords, Converter={StaticResource StringToCollection}, Mode=OneWayToSource}"/>
+        <Label Text="{Binding Language}"  Grid.Row="0" Grid.Column="1"/>
         <Editor x:Name="Output" Grid.Row="1" Grid.Column="0" 
                 BackgroundColor="AliceBlue"
-                Text="{Binding Words, Converter={StaticResource StringToCollection} , Mode=OneWay}"/>
+                Text="{Binding OutputWords, Converter={StaticResource StringToCollection}, Mode=OneWay}"/>
     </Grid>
 </ContentPage>

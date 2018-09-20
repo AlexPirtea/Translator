@@ -5,6 +5,7 @@ using Translator.Model;
 using Xamarin.Forms;
 using System.Linq;
 using System.Collections.Generic;
+using System.Collections.Concurrent;
 
 namespace Translator.Converter
 {
@@ -29,7 +30,7 @@ namespace Translator.Converter
                 return Enumerable.Empty<Word>();
             }
 
-            ObservableCollection<Word> result = new ObservableCollection<Word>();
+            ConcurrentBag<Word> result = new ConcurrentBag<Word>();
 
             IEnumerable<Word> words = stringValue.Split(new char[] { ' ', ',' })
                                                  .Select((w) => new Word { Text = w });

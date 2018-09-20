@@ -6,6 +6,6 @@ namespace Translator.Model
 {
     public class Translation
     {
-        public Record Record { get; set; }
+        (string language, Word word) Trad { get; set; }
     }
 }

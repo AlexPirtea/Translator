@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
+using Translator.Model;
 
 namespace Translator.Service
 {
     public interface ITranslator
     {
-        string Translate(string input);
+        (IEnumerable<Word> output, string language) Translate(IEnumerable<string> input);
         string DictionarySource { get; set; }
         void Init();
     }

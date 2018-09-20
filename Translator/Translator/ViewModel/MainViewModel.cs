@@ -1,7 +1,11 @@
 ﻿using GalaSoft.MvvmLight;
+using System.Collections.Concurrent;
 using System.Collections.ObjectModel;
+using System.Globalization;
+using System.Linq;
 using Translator.Model;
 using Translator.Service;
+using Xamarin.Forms;
 
 namespace Translator.ViewModel
 {
@@ -11,53 +15,58 @@ namespace Translator.ViewModel
         public MainViewModel(ITranslator translatorService)
         {
             _translatorService = translatorService;
-            _translatorService.DictionarySource = "Intelligent_translator.xml";
-            _translatorService.Init();
+            
 
-            _words = new ObservableCollection<Word>();
+            _inputWords = new ConcurrentBag<Word>();
+            _outputWords = new ConcurrentBag<Word>();
+
+            //_language = CultureInfo.GetCultureInfo("ro-RO").EnglishName;
         }
 
-        private string _input;
-        private string _output;
+        private ConcurrentBag<Word> _inputWords;
 
-        private ObservableCollection<Word> _words;
-
-        public ObservableCollection<Word> Words
+        public ConcurrentBag<Word> InputWords
         {
-            get => _words;
+            get => _inputWords;
             set
             {
-                if (_words == value)
+                if (_inputWords == value)
                     return;
-                _words = value;
-                RaisePropertyChanged(nameof(Words));
+                _inputWords = value;
+                RaisePropertyChanged(nameof(OutputWords));
             }
         }
 
-
-        public string Input
+        private ConcurrentBag<Word> _outputWords;
+        public ConcurrentBag<Word> OutputWords
         {
-            get => _input;
+            get
+            {
+                var translationResult = _translatorService.Translate(InputWords.Select(w => w.Text));
+                Language = translationResult.language;
+                return new ConcurrentBag<Word>(translationResult.output);
+            }
+
             set
             {
-                if (_input == value)
+                if (_inputWords == value)
                     return;
-                _input = value;
-                RaisePropertyChanged(nameof(Input));
+                _inputWords = value;
             }
         }
 
-        public string Output
+        private string _language;
+
+        public string Language
         {
-            get => _output;
+            get => _language;
             set
             {
-                if (_output == value)
+                if (_language == value)
                     return;
-                _output = value;
-                RaisePropertyChanged(nameof(Output));
+                _language = string.IsNullOrWhiteSpace(value) ? @"N\A" : CultureInfo.GetCultureInfo(value).EnglishName;
+                RaisePropertyChanged(nameof(Language));
             }
         }
-
     }
 }

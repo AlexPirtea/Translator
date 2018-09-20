@@ -1,4 +1,5 @@
 ﻿using System;
+using Translator.Model;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -10,7 +11,6 @@ namespace Translator
         public App()
         {
             InitializeComponent();
-
             MainPage = new MainPage();
         }
 
