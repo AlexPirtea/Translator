@@ -23,6 +23,8 @@ namespace Translator.Service
                 return null;
             }
 
+            input = input.Trim();
+
             string wordKey = input.ToLowerInvariant();
             _dict.TryGetValue(wordKey, out var output);
             return output;

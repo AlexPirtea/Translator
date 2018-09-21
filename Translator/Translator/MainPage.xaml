@@ -8,11 +8,6 @@
              x:Class="Translator.MainPage">
     <ContentPage.Resources>
         <ResourceDictionary>
-            <!--<Style x:Key="EntryStyle" TargetType="autocomplete:SfAutoComplete">
-                <Setter Property="MinimumWidthRequest" Value="50"/>
-                <Setter Property="TextColor" Value="White" />
-                <Setter Property="FontAttributes"  Value="Italic"/>
-            </Style>-->
         </ResourceDictionary>
     </ContentPage.Resources>
     <Grid>
@@ -26,7 +21,7 @@
         </Grid.RowDefinitions>
         <autocomplete:SfAutoComplete x:Name="Input" Grid.Row="0" Grid.Column="0"
                                      Style="{StaticResource EntryStyle}"
-                                     DataSource="{Binding FlatDict}"
+                                     DataSource="{Binding Sugestions}"
                                      BackgroundColor="{Binding InputBackground}"
                                      Text="{Binding InputWord, Mode=OneWayToSource}">
             <autocomplete:SfAutoComplete.Triggers>
