@@ -1,13 +1,14 @@
-﻿using System;
+﻿using Syncfusion.SfAutoComplete.XForms;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Xamarin.Forms;
 
 namespace Translator.Trigger
 {
-    public class ShakeEntry : TriggerAction<Entry>
+    public class ShakeEntry : TriggerAction<SfAutoComplete>
     {
-        async protected override void Invoke(Entry entry)
+        async protected override void Invoke(SfAutoComplete entry)
         {
             uint timeout = 50;
 

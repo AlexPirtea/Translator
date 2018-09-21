@@ -1,17 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:conv="clr-namespace:Translator.Converter"
              xmlns:trigger="clr-namespace:Translator.Trigger"
+             xmlns:b="clr-namespace:Xamarin.Forms.ToolKit.Behaviors;assembly=Xamarin.Forms.ToolKit.Behaviors"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:autocomplete="clr-namespace:Syncfusion.SfAutoComplete.XForms;assembly=Syncfusion.SfAutoComplete.XForms"
              x:Class="Translator.MainPage">
     <ContentPage.Resources>
         <ResourceDictionary>
-            <!--<Style x:Key="EntryStyle" TargetType="Entry">
+            <!--<Style x:Key="EntryStyle" TargetType="autocomplete:SfAutoComplete">
                 <Setter Property="MinimumWidthRequest" Value="50"/>
                 <Setter Property="TextColor" Value="White" />
-                <Setter Property="FontSize">
-                    <OnPlatform x:TypeArguments="x:String" Android="Medium" iOS="Medium" />
-                </Setter>
                 <Setter Property="FontAttributes"  Value="Italic"/>
             </Style>-->
         </ResourceDictionary>
@@ -23,26 +22,25 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="15*"/>
-            <RowDefinition Height="75*"/>
-            <RowDefinition Height="10*"/>
+            <RowDefinition Height="85*"/>
         </Grid.RowDefinitions>
-        <Entry x:Name="Input" Grid.Row="0" Grid.Column="0" 
-                BackgroundColor="{Binding InputBackground}"
-                Text="{Binding InputWord, Mode=OneWayToSource}" >
-
-            <Entry.Triggers>
+        <autocomplete:SfAutoComplete x:Name="Input" Grid.Row="0" Grid.Column="0"
+                                     Style="{StaticResource EntryStyle}"
+                                     DataSource="{Binding FlatDict}"
+                                     BackgroundColor="{Binding InputBackground}"
+                                     Text="{Binding InputWord, Mode=OneWayToSource}">
+            <autocomplete:SfAutoComplete.Triggers>
                 <EventTrigger Event="Completed" >
                     <trigger:ShakeEntry />
                 </EventTrigger>
-            </Entry.Triggers>
-        </Entry>
+            </autocomplete:SfAutoComplete.Triggers>
+        </autocomplete:SfAutoComplete>
         <Label Text="{Binding Language}"  Grid.Row="0" Grid.Column="1"/>
-
         <ListView  x:Name="Output" Grid.Row="1" Grid.Column="0" ItemsSource="{Binding OutputWords}" >
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <StackLayout Orientation="Horizontal" HorizontalOptions="Fill" >
+                        <StackLayout Orientation="Horizontal" >
                             <Label Text = "{Binding Text}" FontSize="Medium" />
                         </StackLayout>
                     </ViewCell>

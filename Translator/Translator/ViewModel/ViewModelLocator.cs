@@ -11,7 +11,8 @@ namespace Translator.ViewModel
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
             SimpleIoc.Default.Register<MainViewModel>();
-            //SimpleIoc.Default.Register<ITranslator, DefaultTranslatorService>();
+            SimpleIoc.Default.Register<ISuggestionProvider, DefaultSugestionProvider>();
+            SimpleIoc.Default.Register<ITranslator, DefaultTranslatorService>();
         }
 
         [SuppressMessage("Microsoft.Performance",

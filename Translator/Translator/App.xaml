@@ -3,10 +3,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Translator.App"
              xmlns:vm="clr-namespace:Translator.ViewModel;assembly=Translator"
+             xmlns:autocomplete="clr-namespace:Syncfusion.SfAutoComplete.XForms;assembly=Syncfusion.SfAutoComplete.XForms"
              >
     <Application.Resources>
         <ResourceDictionary>
             <vm:ViewModelLocator x:Key="Locator" />
+            <Style x:Key="EntryStyle" TargetType="autocomplete:SfAutoComplete">
+                <Setter Property="MinimumWidthRequest" Value="50"/>
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="FontAttributes"  Value="Italic"/>
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

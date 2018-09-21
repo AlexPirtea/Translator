@@ -52,7 +52,7 @@ namespace Translator.Droid
             }
 
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
-            SimpleIoc.Default.Register<ITranslator>(() => new DefaultTranslatorService(dict));
+            SimpleIoc.Default.Register<WordDictionary>(() => new WordDictionary(dict));
             LoadApplication(new App());
         }
     }

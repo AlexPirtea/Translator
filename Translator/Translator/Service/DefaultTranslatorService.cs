@@ -10,17 +10,10 @@ namespace Translator.Service
 {
     public class DefaultTranslatorService : ITranslator
     {
-        Dictionary<string, Word> _dict;
-        public DefaultTranslatorService(Dictionary<string, Word> dict)
+        WordDictionary _dict;
+        public DefaultTranslatorService(WordDictionary dict)
         {
             _dict = dict;
-        }
-
-        public string DictionarySource { get; set; }
-        public Dictionary<string, Word> Dict => _dict;
-
-        public void Init()
-        {
         }
 
         public Word Translate(string input)
@@ -31,7 +24,7 @@ namespace Translator.Service
             }
 
             string wordKey = input.ToLowerInvariant();
-            Dict.TryGetValue(wordKey, out var output);
+            _dict.TryGetValue(wordKey, out var output);
             return output;
         }
     }
