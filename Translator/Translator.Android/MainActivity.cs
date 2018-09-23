@@ -1,18 +1,10 @@
-﻿using System;
-
+﻿
 using Android.App;
 using Android.Content.PM;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using Android.OS;
 using Translator.Model;
 using System.Xml.Serialization;
 using System.IO;
-using GalaSoft.MvvmLight.Ioc;
-using Translator.Service;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Translator.Droid
 {
@@ -35,24 +27,9 @@ namespace Translator.Droid
                 translations = (TRANSLATIONS)serializer.Deserialize(streamReader);
             }
 
-            Dictionary<string, Word> dict = new Dictionary<string, Word>();
-
-            var records = translations.RECORD;
-
-            foreach (var r in records)
-            {
-                var item = new Word { Language = r.culture, Text = r.word };
-                item.Links = new List<Word>();
-                foreach (var l in r.LINK)
-                {
-                    item.Links.Add(new Word { Text = l.word, Language = l.culture });
-                }
-                dict.Add(item.Text.ToLowerInvariant(), item);
-
-            }
+            Bootstrapper.InitWordsProviderService(translations);
 
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
-            SimpleIoc.Default.Register<WordDictionary>(() => new WordDictionary(dict));
             LoadApplication(new App());
         }
     }

@@ -3,7 +3,7 @@ using Translator.Model;
 
 namespace Translator.Service
 {
-    public interface ITranslator
+    public interface ITranslatorService
     {
         Word Translate(string input);
     }

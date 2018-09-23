@@ -8,10 +8,10 @@ using Translator.Model;
 
 namespace Translator.Service
 {
-    public class DefaultTranslatorService : ITranslator
+    public class DefaultTranslatorService : ITranslatorService
     {
-        WordDictionary _dict;
-        public DefaultTranslatorService(WordDictionary dict)
+        WordsProviderService _dict;
+        public DefaultTranslatorService(WordsProviderService dict)
         {
             _dict = dict;
         }

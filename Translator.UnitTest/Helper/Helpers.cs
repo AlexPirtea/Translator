@@ -9,7 +9,7 @@ namespace Translator.UnitTest
 {
     public static class Helpers
     {
-        public static string GetRandomWordKey(this WordDictionary wd)
+        public static string GetRandomWordKey(this WordsProviderService wd)
         {
             Random rand = new Random();
             List<Word> values = wd.Values.ToList();

@@ -9,9 +9,9 @@ namespace Translator.ViewModel
 {
     public class MainViewModel : ViewModelBase
     {
-        private ITranslator _translatorService;
-        private ISuggestionProvider _suggestionProvider;
-        public MainViewModel(ITranslator translatorService, ISuggestionProvider suggestionProvider)
+        private ITranslatorService _translatorService;
+        private ISuggestionService _suggestionProvider;
+        public MainViewModel(ITranslatorService translatorService, ISuggestionService suggestionProvider)
         {
             _translatorService = translatorService;
             _suggestionProvider = suggestionProvider;
@@ -30,7 +30,7 @@ namespace Translator.ViewModel
             }
         }
 
-        public List<string> Sugestions => _suggestionProvider.GetFlatDict();
+        public List<string> Sugestions => _suggestionProvider.GetSuggestions();
 
         public List<Word> OutputWords
         {

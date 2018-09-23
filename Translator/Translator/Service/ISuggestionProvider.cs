@@ -5,9 +5,8 @@ using System.Threading.Tasks;
 
 namespace Translator.Service
 {
-    public interface ISuggestionProvider
+    public interface ISuggestionService
     {
-        Task<IEnumerable<string>> GetSugestions(string input);
-        List<string> GetFlatDict();
+        List<string> GetSuggestions();
     }
 }
