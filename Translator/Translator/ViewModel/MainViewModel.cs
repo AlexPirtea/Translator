@@ -49,11 +49,13 @@ namespace Translator.ViewModel
                 {
                     Language = null;
                     InputBackground = Color.FromHex("D46A6A");
+                    RaisePropertyChanged(nameof(SimilarWords));
                     return new List<Word> { new Word { Text = "Word not found" } };
                 }
 
                 Language = translationResult.Language;
                 InputBackground = Color.FromHex("6CB259");
+                RaisePropertyChanged(nameof(SimilarWords));
                 return translationResult.Links;
             }
         }
@@ -87,7 +89,12 @@ namespace Translator.ViewModel
                 _inputBackgorund = value;
                 RaisePropertyChanged(nameof(InputBackground));
             }
-        } 
+        }
         #endregion
+
+        public List<string> SimilarWords
+        {
+            get => _suggestionProvider.GetSimilarWords(_inputWord);
+        }
     }
 }

@@ -8,5 +8,6 @@ namespace Translator.Service
     public interface ISuggestionService
     {
         List<string> GetSuggestions();
+        List<string> GetSimilarWords(string input);
     }
 }

@@ -2,39 +2,53 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:trigger="clr-namespace:Translator.Trigger"
-             xmlns:b="clr-namespace:Xamarin.Forms.ToolKit.Behaviors;assembly=Xamarin.Forms.ToolKit.Behaviors"
-             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:autocomplete="clr-namespace:Syncfusion.SfAutoComplete.XForms;assembly=Syncfusion.SfAutoComplete.XForms"
+             xmlns:conv="clr-namespace:Translator.Converter"
              x:Class="Translator.MainPage">
     <ContentPage.Resources>
         <ResourceDictionary>
+            <conv:ListAnyToBool x:Key="ListAnyToBool" />
         </ResourceDictionary>
     </ContentPage.Resources>
     <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Margin="35">
-        <autocomplete:SfAutoComplete x:Name="Input" Grid.Row="0" Grid.Column="0"
-                                     Style="{StaticResource EntryStyle}"
-                                     DataSource="{Binding Sugestions}"
-                                     BackgroundColor="{Binding InputBackground}"
-                                     Text="{Binding InputWord, Mode=OneWayToSource}">
+        <autocomplete:SfAutoComplete x:Name="Input"
+            Style="{StaticResource EntryStyle}"
+            DataSource="{Binding Sugestions}"
+            BackgroundColor="{Binding InputBackground}"
+            Text="{Binding InputWord, Mode=OneWayToSource}">
             <autocomplete:SfAutoComplete.Triggers>
                 <EventTrigger Event="Completed" >
                     <trigger:ShakeEntry />
                 </EventTrigger>
             </autocomplete:SfAutoComplete.Triggers>
         </autocomplete:SfAutoComplete>
-        <Label Text="{Binding Language}" Grid.Row="1" Grid.Column="0" 
+        <Label Text="{Binding Language}"
                VerticalOptions="CenterAndExpand"
                HorizontalOptions="CenterAndExpand"
                FontSize="Small"/>
-        <ListView  x:Name="Output" Grid.Row="2" Grid.Column="0" 
-                   ItemsSource="{Binding OutputWords}" 
-                   VerticalOptions="CenterAndExpand"
-                   HorizontalOptions="CenterAndExpand">
+        <ListView  x:Name="Output"
+            ItemsSource="{Binding OutputWords}" 
+            VerticalOptions="CenterAndExpand"
+            HorizontalOptions="CenterAndExpand">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <TextCell Text="{Binding Text}"
                               Detail="{Binding Language}"
                               Height="10"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Label Text="Similar words:" 
+            FontSize="Micro" 
+            IsVisible="{Binding SimilarWords, Mode=OneWay, Converter={StaticResource ListAnyToBool}}"/>
+        <ListView  x:Name="SimilarWords" 
+            ItemsSource="{Binding SimilarWords}" 
+            IsVisible="{Binding SimilarWords, Mode=OneWay, Converter={StaticResource ListAnyToBool}}"
+            VerticalOptions="CenterAndExpand"
+            HorizontalOptions="CenterAndExpand">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextCell Text="{Binding}" />
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
