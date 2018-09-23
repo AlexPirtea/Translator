@@ -11,12 +11,16 @@ namespace Translator.ViewModel
     {
         private ITranslatorService _translatorService;
         private ISuggestionService _suggestionProvider;
+
+        #region Constructors
         public MainViewModel(ITranslatorService translatorService, ISuggestionService suggestionProvider)
         {
             _translatorService = translatorService;
             _suggestionProvider = suggestionProvider;
-        }
+        } 
+        #endregion
 
+        #region InputWord
         private string _inputWord = string.Empty;
         public string InputWord
         {
@@ -29,9 +33,13 @@ namespace Translator.ViewModel
                 RaisePropertyChanged(nameof(OutputWords));
             }
         }
+        #endregion
 
+        #region Suggestions
         public List<string> Sugestions => _suggestionProvider.GetSuggestions();
+        #endregion
 
+        #region OutputWords
         public List<Word> OutputWords
         {
             get
@@ -40,16 +48,18 @@ namespace Translator.ViewModel
                 if (translationResult == null)
                 {
                     Language = null;
-                    InputBackground = Color.Red;
+                    InputBackground = Color.FromHex("D46A6A");
                     return new List<Word> { new Word { Text = "Word not found" } };
                 }
 
                 Language = translationResult.Language;
-                InputBackground = Color.Green;
+                InputBackground = Color.FromHex("6CB259");
                 return translationResult.Links;
             }
         }
+        #endregion
 
+        #region Language
         private string _language;
 
         public string Language
@@ -63,8 +73,9 @@ namespace Translator.ViewModel
                 RaisePropertyChanged(nameof(Language));
             }
         }
+        #endregion
 
-
+        #region InputBackground
         private Color _inputBackgorund = Color.White;
         public Color InputBackground
         {
@@ -76,6 +87,7 @@ namespace Translator.ViewModel
                 _inputBackgorund = value;
                 RaisePropertyChanged(nameof(InputBackground));
             }
-        }
+        } 
+        #endregion
     }
 }

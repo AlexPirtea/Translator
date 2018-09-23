@@ -11,8 +11,10 @@
             <Style x:Key="EntryStyle" TargetType="autocomplete:SfAutoComplete">
                 <Setter Property="MinimumWidthRequest" Value="50"/>
                 <Setter Property="TextColor" Value="White" />
-                <Setter Property="FontAttributes"  Value="Italic"/>
-                <Setter Property="DropDownCornerRadius" Value="5"/>
+                <Setter Property="DropDownCornerRadius" Value="3"/>
+                <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
+                <Setter Property="Watermark" Value="Type word here"/>
+                <Setter Property="WatermarkColor" Value="WhiteSmoke"/>
             </Style>
         </ResourceDictionary>
     </Application.Resources>

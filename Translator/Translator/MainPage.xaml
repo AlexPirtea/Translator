@@ -10,15 +10,7 @@
         <ResourceDictionary>
         </ResourceDictionary>
     </ContentPage.Resources>
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="70*"  />
-            <ColumnDefinition Width="30*" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="15*"/>
-            <RowDefinition Height="85*"/>
-        </Grid.RowDefinitions>
+    <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Margin="35">
         <autocomplete:SfAutoComplete x:Name="Input" Grid.Row="0" Grid.Column="0"
                                      Style="{StaticResource EntryStyle}"
                                      DataSource="{Binding Sugestions}"
@@ -30,17 +22,21 @@
                 </EventTrigger>
             </autocomplete:SfAutoComplete.Triggers>
         </autocomplete:SfAutoComplete>
-        <Label Text="{Binding Language}"  Grid.Row="0" Grid.Column="1"/>
-        <ListView  x:Name="Output" Grid.Row="1" Grid.Column="0" ItemsSource="{Binding OutputWords}" >
+        <Label Text="{Binding Language}" Grid.Row="1" Grid.Column="0" 
+               VerticalOptions="CenterAndExpand"
+               HorizontalOptions="CenterAndExpand"
+               FontSize="Small"/>
+        <ListView  x:Name="Output" Grid.Row="2" Grid.Column="0" 
+                   ItemsSource="{Binding OutputWords}" 
+                   VerticalOptions="CenterAndExpand"
+                   HorizontalOptions="CenterAndExpand">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <ViewCell>
-                        <StackLayout Orientation="Horizontal" >
-                            <Label Text = "{Binding Text}" FontSize="Medium" />
-                        </StackLayout>
-                    </ViewCell>
+                    <TextCell Text="{Binding Text}"
+                              Detail="{Binding Language}"
+                              Height="10"/>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-    </Grid>
+    </StackLayout>
 </ContentPage>

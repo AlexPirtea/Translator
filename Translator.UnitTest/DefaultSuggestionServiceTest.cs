@@ -11,7 +11,6 @@ namespace Translator.UnitTest
         static ISuggestionService _suggestionService;
         static WordsProviderService _dict;
 
-
         [ClassInitialize]
         public static void InitDict(TestContext tc)
         {
@@ -34,19 +33,5 @@ namespace Translator.UnitTest
             // Assert
             CollectionAssert.AreEqual(expectedValues, actualValues);
         }
-
-        [TestMethod]
-        public void SuggestionServiceReturnsNoValues_WhenDictionaryIsEmpty()
-        {
-            // Arrange
-            _dict.Clear();
-
-            // Act
-            var actualValues = _suggestionService.GetSuggestions();
-
-            // Assert
-            Assert.IsFalse(actualValues.Any());
-        }
-
     }
 }
